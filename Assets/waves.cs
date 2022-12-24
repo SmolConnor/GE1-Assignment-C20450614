@@ -8,7 +8,16 @@ public class waves : MonoBehaviour
     public float waveSpeed;
     public float waveHeight;
     public float offset;
-
+    private bool storming;
+    private bool waveing;
+    public Animator anime;
+    public AudioSource source;
+    public AudioClip[] clips = new AudioClip[2];
+    private void Start()
+    {
+        storming = false;
+        waveing = true;
+    }
     void Update()
     {
         CalcNoise();
@@ -33,5 +42,33 @@ public class waves : MonoBehaviour
         mF.mesh.vertices = verts;
         mF.mesh.RecalculateNormals();
         mF.mesh.RecalculateBounds();
+    }
+
+    public void storm()
+    {
+        if(storming == false)
+        {
+            waveHeight += 3;
+            storming = true;
+            waveing = false;
+            anime.SetBool("Storm", true);
+            source.clip = clips[1];
+            source.Play();
+        }
+        
+    }
+
+    public void wave()
+    {
+        if (waveing == false)
+        {
+            waveHeight -= 3;
+            storming = false;
+            waveing = true;
+            anime.SetBool("Storm", false);
+            source.clip = clips[0];
+            source.Play();
+        }
+
     }
 }
