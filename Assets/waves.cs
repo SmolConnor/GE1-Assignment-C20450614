@@ -10,31 +10,22 @@ public class waves : MonoBehaviour
     public float offset;
     private bool storming;
     private bool waveing;
-    private bool bottling;
-    private bool music;
-    private Vector3 scale;
-    private Vector3 bottleScale;
     public Animator anime;
     public AudioSource source;
     public AudioClip[] clips = new AudioClip[3];
-    public GameObject bottle;
+
     private void Start()
     {
         storming = false;
         waveing = true;
-        bottling = false;
-        music = false;
-        scale = new Vector3(20, 0, 20);
+      
         
     }
     void Update()
     {
         CalcNoise();
 
-        while (music == true)
-        {
-            waveHeight += source.clip.frequency;
-        }
+      
     }
 
     void CalcNoise()
@@ -65,7 +56,7 @@ public class waves : MonoBehaviour
             waveHeight += 3;
             storming = true;
             waveing = false;
-            bottling = false;
+        
             anime.SetBool("Storm", true);
             source.clip = clips[1];
             source.Play();
@@ -82,7 +73,7 @@ public class waves : MonoBehaviour
             waveHeight -= 3;
             storming = false;
             waveing = true;
-            bottling = false;
+           
             anime.SetBool("Storm", false);
             source.clip = clips[0];
             source.Play();
@@ -92,20 +83,5 @@ public class waves : MonoBehaviour
 
     }
 
-    public void shipbottle()
-    {
-        if (bottling == false)
-        {
-            waveHeight -= 3;
-            storming = false;
-            waveing = false;
-            bottling = true;
-            anime.SetBool("Storm", false);
-            source.clip = clips[2];
-            source.Play();
-            transform.localScale += scale;
-            music = true;
-        }
-
-    }
+    
 }
